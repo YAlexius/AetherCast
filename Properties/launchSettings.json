@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AtherCast (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "AtherCast (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
