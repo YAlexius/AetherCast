@@ -13,6 +13,14 @@
 *.csproj.user
 *.sln.docstates
 
+# Properties 文件夹中的特定文件
+Properties/PublishProfiles/
+Properties/ServiceDependencies/
+PublishProfiles/
+ServiceDependencies/
+*.pubxml
+*.pubxml.user
+
 # ReSharper
 _ReSharper*/
 *.[Rr]e[Ss]harper
