@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
-    x:Class="AtherCast.Pages.DanmuLibraryPage"
+    x:Class="AtherCast.Pages.PlaylistPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AtherCast.Pages"
@@ -14,26 +13,26 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- 顶部标题和按钮区域 -->
+        <!-- Header -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock x:Uid="DanmuLibGrid"
+            <TextBlock x:Uid="PlaylistGrid"
                       Style="{StaticResource TitleTextBlockStyle}"/>
 
             <Button x:Name="OpenFolderButton" 
-                    x:Uid="OpenFileButton"
+                    x:Uid="OpenFolderButton"
                     Grid.Column="1"
                     Style="{StaticResource AccentButtonStyle}">
             </Button>
         </Grid>
 
-        <!-- 弹幕库内容列表 -->
-        <GridView Grid.Row="1" 
-                  x:Name="DanmuGrid"
+        <!-- Content -->
+        <GridView x:Name="PlaylistGrid" 
+                  Grid.Row="1"
                   Margin="0,24,0,0">
             <TextBlock x:Uid="VideoLibrary_Desc"/>
         </GridView>

@@ -16,27 +16,27 @@
 
             <controls:NavigationView.MenuItems>
                 <controls:NavigationViewItem x:Name="HomeItem" 
+                                             x:Uid="HomeLabel"
                                            Icon="Home" 
-                                           Content="Home" 
                                            Tag="Home"/>
                 <controls:NavigationViewItem x:Name="VideoItem" 
+                                             x:Uid="VideoLibraryLabel"
                                            Icon="Video" 
-                                           Content="Video Library"
                                            Tag="VideoLibrary"/>
                 <controls:NavigationViewItem x:Name="DanmuItem" 
+                                             x:Uid="DanmuLibraryLabel"
                                            Icon="Message" 
-                                           Content="Danmu Library"
                                            Tag="DanmuLibrary"/>
                 <controls:NavigationViewItem x:Name="PlaylistItem" 
+                                             x:Uid="PlaylistLabel"
                                            Icon="List" 
-                                           Content="Playlist"
                                            Tag="Playlist"/>
             </controls:NavigationView.MenuItems>
 
             <controls:NavigationView.FooterMenuItems>
                 <controls:NavigationViewItem x:Name="NowPlayingItem"
+                                             x:Uid="NowPlayingLabel"
                                            Icon="Play" 
-                                           Content="Now Playing"
                                            Tag="NowPlaying"/>
             </controls:NavigationView.FooterMenuItems>
 
@@ -60,22 +60,20 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="Recent Media"
+                            <TextBlock x:Uid="HomeGrid"
                                      Style="{StaticResource TitleTextBlockStyle}"/>
 
                             <Button x:Name="OpenFileButton" 
+                                    x:Uid="OpenFileButton"
                                   Grid.Column="1"
                                   Style="{StaticResource AccentButtonStyle}">
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8E5;"/>
-                                    <TextBlock Text="Open File"/>
-                                </StackPanel>
                             </Button>
                         </Grid>
 
                         <Grid x:Name="HomeContent" Grid.Row="1">
                             <GridView x:Name="RecentItemsGrid"
                                      Margin="0,24,0,0">
+                                <TextBlock x:Uid="VideoLibrary_Desc"/>
                             </GridView>
                         </Grid>
                     </Grid>

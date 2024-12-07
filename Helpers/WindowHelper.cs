@@ -12,7 +12,7 @@ namespace AtherCast.Helpers
                 throw new InvalidOperationException("Element is not connected to a window");
             }
 
-            var window = (Window)((Application.Current as App)?.MainWindow 
+            var window = (Window)((Application.Current as App)?.MainWindow
                 ?? throw new InvalidOperationException("No main window found"));
 
             if (window.Content?.XamlRoot != element.XamlRoot)

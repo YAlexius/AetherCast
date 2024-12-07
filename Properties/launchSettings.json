@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AetherCast (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "AetherCast (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

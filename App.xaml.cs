@@ -21,6 +21,7 @@ namespace AtherCast
         public App()
         {
             this.InitializeComponent();
+            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "zh-CN";
         }
 
         /// <summary>

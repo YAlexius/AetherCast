@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <EnableDefaultPriItems>false</EnableDefaultPriItems>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>AtherCast</RootNamespace>
@@ -9,10 +10,18 @@
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
-    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsPackageType>MSIX</WindowsPackageType>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="Assets\BadgeLogo.scale-100.png" />
+    <Content Remove="Assets\BadgeLogo.scale-125.png" />
+    <Content Remove="Assets\BadgeLogo.scale-150.png" />
+    <Content Remove="Assets\BadgeLogo.scale-200.png" />
+    <Content Remove="Assets\BadgeLogo.scale-400.png" />
+    <Content Remove="Assets\StoreLogo.scale-400.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Pages\DanmuLibraryPage.xaml" />
@@ -20,6 +29,7 @@
     <None Remove="Pages\VideoLibraryPage.xaml" />
     <None Remove="MainWindow.xaml" />
     <None Remove="App.xaml" />
+    <None Remove="Strings\zh-CN\Resources.resw" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,13 +38,22 @@
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.241114003" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Include="Strings\zh-CN\Resources.resw">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </PRIResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -50,6 +69,9 @@
     <Page Update="Pages\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Update="Pages\PlaylistPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Pages\VideoLibraryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -60,5 +82,7 @@
     <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <ApplicationIcon>Assets\AetherCast.ico</ApplicationIcon>
   </PropertyGroup>
 </Project>

@@ -5,9 +5,9 @@ using Windows.Storage.Pickers;
 
 namespace AtherCast.Pages
 {
-    public sealed partial class DanmuLibraryPage : Page
+    public sealed partial class PlaylistPage : Page
     {
-        public DanmuLibraryPage()
+        public PlaylistPage()
         {
             this.InitializeComponent();
             InitializePage();

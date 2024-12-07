@@ -20,16 +20,13 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Video Library"
+            <TextBlock x:Uid="VideoLibGrid"
                       Style="{StaticResource TitleTextBlockStyle}"/>
 
             <Button x:Name="ImportVideoButton" 
+                    x:Uid="ImportVideoButton"
                     Grid.Column="1"
                     Style="{StaticResource AccentButtonStyle}">
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8E5;"/>
-                    <TextBlock Text="Import Video"/>
-                </StackPanel>
             </Button>
         </Grid>
 
@@ -37,7 +34,7 @@
         <GridView x:Name="VideoGrid" 
                   Grid.Row="1"
                   Margin="0,24,0,0">
-            <!-- Video items will be added programmatically -->
+            <TextBlock x:Uid="VideoLibrary_Desc"/>
         </GridView>
     </Grid>
 </Page>

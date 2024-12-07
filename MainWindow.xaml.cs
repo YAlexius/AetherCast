@@ -1,19 +1,12 @@
-using System;
-using System.Threading.Tasks;
-using Microsoft.UI;
+using AtherCast.Pages;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Windows.Storage.Pickers;
-using Windows.Storage;
+using System;
+using System.Threading.Tasks;
 using Windows.Media.Core;
 using Windows.Media.Playback;
-using AtherCast.Pages;
-using WinRT;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -32,10 +25,10 @@ namespace AtherCast
         {
             this.InitializeComponent();
             Title = "AtherCast";
-            
+
             InitializeMediaPlayer();
             RegisterEventHandlers();
-            
+
             // Set initial navigation
             if (MainNav != null && HomeItem != null)
             {
@@ -117,6 +110,9 @@ namespace AtherCast
                         break;
                     case "DanmuLibrary":
                         NavigateToPage(typeof(DanmuLibraryPage));
+                        break;
+                    case "Playlist":
+                        NavigateToPage(typeof(PlaylistPage));
                         break;
                     case "NowPlaying":
                         ShowPlayerView();
@@ -285,8 +281,8 @@ namespace AtherCast
         {
             if (mediaPlayer == null || MainNav == null) return;
 
-            mediaPlayer.Margin = MainNav.IsPaneOpen 
-                ? new Thickness(0) 
+            mediaPlayer.Margin = MainNav.IsPaneOpen
+                ? new Thickness(0)
                 : new Thickness(48, 0, 0, 0);
         }
     }

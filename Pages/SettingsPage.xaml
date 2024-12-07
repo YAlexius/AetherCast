@@ -8,10 +8,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Padding="24" Spacing="24">
+    <StackPanel x:Name="settingsPageStackPanel" Padding="24" Spacing="24">
+
+        <!-- 设置的代码还没写好 -->
+        <TextBlock Text="==Not working yet.=="/>
+        
         <!-- 语言设置 -->
         <ComboBox x:Name="LanguageComboBox"
-                  Header="语言 Language"
+                  x:Uid="LanguageComboBox"
                   MinWidth="200"
                   SelectionChanged="LanguageComboBox_SelectionChanged">
             <ComboBoxItem Content="简体中文" Tag="zh-CN"/>
@@ -21,17 +25,30 @@
 
         <!-- 主题设置 -->
         <ComboBox x:Name="ThemeComboBox"
-                  Header="主题外观"
+                  x:Uid="ThemeComboBox"
                   MinWidth="200"
                   SelectionChanged="ThemeComboBox_SelectionChanged">
-            <ComboBoxItem Content="浅色"/>
-            <ComboBoxItem Content="深色"/>
-            <ComboBoxItem Content="跟随系统"/>
+            <ComboBoxItem x:Uid="LightThemeItem"/>
+            <ComboBoxItem x:Uid="DarkThemeItem"/>
+            <ComboBoxItem x:Uid="SystemThemeItem"/>
         </ComboBox>
 
         <!-- 设置说明文本 -->
-        <TextBlock Text="主题设置将在重启应用后生效"
+        <TextBlock x:Uid="ThemeSettingNote"
                   Style="{StaticResource CaptionTextBlockStyle}"
                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+
+        <!-- 版本与更新-->
+        <StackPanel Spacing="8">
+            <TextBlock>
+                <Run FontFamily="Comic Sans MS" FontStyle="Italic" Foreground="DarkGray">
+                    AetherCast
+                </Run>
+                <Span> Version: <Underline>0.1.0</Underline></Span>
+            </TextBlock>
+            <HyperlinkButton 
+            x:Uid="SettingsUpdateCheckHyperlink" 
+            NavigateUri="https://github.com/YAlexius/AetherCast"/>
+        </StackPanel>
     </StackPanel>
 </Page>

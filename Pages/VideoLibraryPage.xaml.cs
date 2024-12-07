@@ -1,10 +1,10 @@
+using AtherCast.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Windows.Storage.Pickers;
-using Windows.Storage;
 using System;
-using AtherCast.Helpers;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 
 namespace AtherCast.Pages
 {
@@ -78,7 +78,7 @@ namespace AtherCast.Pages
             // 2. Save video metadata
             // 3. Add to the GridView
             // For now, we'll just show a success message
-            
+
             if (this.XamlRoot != null)
             {
                 ContentDialog dialog = new ContentDialog
