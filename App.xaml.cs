@@ -1,6 +1,10 @@
-﻿using Microsoft.UI.Xaml;
+﻿using AetherCast.Services;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using System;
+using Windows.Globalization;
 
-namespace AtherCast
+namespace AetherCast
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -8,30 +12,83 @@ namespace AtherCast
     public partial class App : Application
     {
         private Window? m_window;
+        private SettingsService settingsService;
+        private readonly Microsoft.Windows.ApplicationModel.Resources.ResourceLoader resourceLoader;
 
-        /// <summary>
-        /// Gets the main window of the application
-        /// </summary>
         public Window? MainWindow => m_window;
 
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
         public App()
         {
             this.InitializeComponent();
-            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "zh-CN";
+            settingsService = SettingsService.Instance;
+            resourceLoader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader();
+
+            settingsService.ThemeChanged += SettingsService_ThemeChanged;
+            settingsService.LanguageChanged += SettingsService_LanguageChanged;
+
+            InitializeAppSettings();
         }
 
-        /// <summary>
-        /// Invoked when the application is launched.
-        /// </summary>
-        /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        private void InitializeAppSettings()
+        {
+            // 设置初始语言
+            var currentLanguage = settingsService.GetCurrentLanguage();
+            ApplicationLanguages.PrimaryLanguageOverride = currentLanguage;
+
+            if (m_window != null)
+            {
+                UpdateAppTheme(settingsService.GetCurrentTheme());
+            }
+        }
+
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             m_window = new MainWindow();
+            UpdateAppTheme(settingsService.GetCurrentTheme());
+            settingsService.ApplyTheme(m_window);
             m_window.Activate();
+        }
+
+        private void SettingsService_ThemeChanged(object? sender, ElementTheme theme)
+        {
+            if (m_window != null)
+            {
+                settingsService.ApplyTheme(m_window);
+            }
+        }
+
+        private void SettingsService_LanguageChanged(object? sender, string languageCode)
+        {
+            ShowRestartRequiredDialog();
+        }
+
+        private void UpdateAppTheme(ElementTheme theme)
+        {
+            if (m_window?.Content is FrameworkElement rootElement)
+            {
+                rootElement.RequestedTheme = theme;
+            }
+        }
+
+        private async void ShowRestartRequiredDialog()
+        {
+            if (m_window == null) return;
+
+            var dialog = new ContentDialog
+            {
+                XamlRoot = m_window.Content.XamlRoot,
+                // 使用 resourceLoader 加载本地化字符串
+                Title = resourceLoader.GetString("RestartRequired/Title"),
+                Content = resourceLoader.GetString("RestartRequired/Content"),
+                PrimaryButtonText = resourceLoader.GetString("RestartRequired/PrimaryButton"),
+                CloseButtonText = resourceLoader.GetString("RestartRequired/CloseButton")
+            };
+
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                Application.Current.Exit();
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-using AtherCast.Helpers;
+using AetherCast.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -6,7 +6,7 @@ using System;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
-namespace AtherCast.Pages
+namespace AetherCast.Pages
 {
     /// <summary>
     /// Video library page for managing video content.

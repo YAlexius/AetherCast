@@ -1,37 +1,44 @@
+using AetherCast.Services;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Linq;
 
-namespace AtherCast.Pages
+namespace AetherCast.Pages
 {
     public sealed partial class SettingsPage : Page
     {
-        private const string LanguageKey = "AppLanguage";
-        private const string ThemeKey = "AppTheme";
+        private readonly SettingsService settingsService;
 
         public SettingsPage()
         {
             this.InitializeComponent();
+            settingsService = SettingsService.Instance;
             LoadCurrentSettings();
         }
 
         private void LoadCurrentSettings()
         {
-            // Load current language setting
-            var currentLanguage = Windows.Storage.ApplicationData.Current.LocalSettings.Values[LanguageKey] as string ?? "zh-CN";
+            // 加载当前语言设置
+            var currentLanguage = settingsService.GetCurrentLanguage();
             LanguageComboBox.SelectedItem = LanguageComboBox.Items.Cast<ComboBoxItem>()
                 .FirstOrDefault(item => item.Tag?.ToString() == currentLanguage);
 
-            // Load current theme setting
-            var currentTheme = Windows.Storage.ApplicationData.Current.LocalSettings.Values[ThemeKey] as string ?? "System";
+            // 加载当前主题设置
+            var currentTheme = settingsService.GetCurrentTheme();
+            var themeResourceKey = GetThemeResourceKey(currentTheme);
             ThemeComboBox.SelectedItem = ThemeComboBox.Items.Cast<ComboBoxItem>()
-                .FirstOrDefault(item => item.Content.ToString() == GetThemeDisplayName(currentTheme));
+                    .FirstOrDefault(item => item.Name == themeResourceKey);
         }
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (LanguageComboBox.SelectedItem is ComboBoxItem selectedItem && selectedItem.Tag != null)
+            // Only proceed if we have a valid selection
+            if (LanguageComboBox.SelectedItem is ComboBoxItem selectedItem &&
+                selectedItem.Tag?.ToString() is string languageCode &&
+                languageCode != settingsService.GetCurrentLanguage())
             {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values[LanguageKey] = selectedItem.Tag.ToString();
+                // Update the language setting
+                settingsService.SetLanguage(languageCode);
             }
         }
 
@@ -39,28 +46,29 @@ namespace AtherCast.Pages
         {
             if (ThemeComboBox.SelectedItem is ComboBoxItem selectedItem)
             {
-                string theme = GetThemeValue(selectedItem.Content.ToString());
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values[ThemeKey] = theme;
+                var theme = GetThemeFromResourceKey(selectedItem.Name);
+                settingsService.SetTheme(theme);
             }
         }
 
-        private string GetThemeValue(string? displayName)
-        {
-            return (displayName ?? "System") switch
-            {
-                "浅色" => "Light",
-                "深色" => "Dark",
-                _ => "System"
-            };
-        }
-
-        private string GetThemeDisplayName(string theme)
+        private string GetThemeResourceKey(ElementTheme theme)
         {
             return theme switch
             {
-                "Light" => "浅色",
-                "Dark" => "深色",
-                _ => "跟随系统"
+                ElementTheme.Light => "LightThemeItem",
+                ElementTheme.Dark => "DarkThemeItem",
+                _ => "SystemThemeItem"
+            };
+        }
+
+        private ElementTheme GetThemeFromResourceKey(string resourceKey)
+        {
+            return resourceKey switch
+            {
+                "LightThemeItem" => ElementTheme.Light,
+                "DarkThemeItem" => ElementTheme.Dark,
+                "SystemThemeItem" => ElementTheme.Default,
+                _ => ElementTheme.Default
             };
         }
     }

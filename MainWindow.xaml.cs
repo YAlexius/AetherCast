@@ -1,70 +1,37 @@
-using AtherCast.Pages;
+using AetherCast.Pages;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
-using Windows.Media.Core;
-using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
-namespace AtherCast
+namespace AetherCast
 {
-    /// <summary>
-    /// Main window class that handles core application functionality and navigation
-    /// </summary>
-    public sealed partial class MainWindow : Microsoft.UI.Xaml.Window
+    public sealed partial class MainWindow : Window
     {
-        private MediaPlayer? mediaPlayerCore;
-        private bool isDisposed;
+        private PlayerPage? currentPlayerPage;
+        private EmptyPlayerPage? emptyPlayerPage;
 
         public MainWindow()
         {
             this.InitializeComponent();
-            Title = "AtherCast";
-
-            InitializeMediaPlayer();
+            Title = "AetherCast";
+            InitializeEmptyPlayerPage();
             RegisterEventHandlers();
 
-            // Set initial navigation
+            // 初始导航
             if (MainNav != null && HomeItem != null)
             {
                 MainNav.SelectedItem = HomeItem;
             }
         }
 
-        private void InitializeMediaPlayer()
-        {
-            try
-            {
-                mediaPlayerCore = new MediaPlayer();
-                if (mediaPlayer != null)
-                {
-                    mediaPlayer.SetMediaPlayer(mediaPlayerCore);
-                    mediaPlayerCore.AutoPlay = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowErrorDialog("Media Player Initialization Error", ex.Message).ConfigureAwait(false);
-            }
-        }
-
         private void RegisterEventHandlers()
         {
-            if (mediaPlayerCore?.PlaybackSession != null)
-            {
-                mediaPlayerCore.PlaybackSession.PlaybackStateChanged += PlaybackSession_PlaybackStateChanged;
-            }
-
             if (MainNav != null)
             {
                 MainNav.SelectionChanged += MainNav_SelectionChanged;
-                MainNav.PaneClosing += MainNav_PaneClosing;
-                MainNav.PaneOpening += MainNav_PaneOpening;
             }
 
             if (OpenFileButton != null)
@@ -77,22 +44,22 @@ namespace AtherCast
 
         private void MainWindow_Closed(object sender, WindowEventArgs args)
         {
-            CleanupMediaPlayer();
+            CleanupPlayer();
         }
 
-        private void CleanupMediaPlayer()
+        private void CleanupPlayer()
         {
-            if (!isDisposed && mediaPlayerCore != null)
+            if (currentPlayerPage != null)
             {
-                if (mediaPlayerCore.PlaybackSession != null)
-                {
-                    mediaPlayerCore.PlaybackSession.PlaybackStateChanged -= PlaybackSession_PlaybackStateChanged;
-                }
-
-                mediaPlayerCore.Dispose();
-                mediaPlayerCore = null;
-                isDisposed = true;
+                currentPlayerPage.Cleanup();
+                currentPlayerPage = null;
             }
+        }
+        private void InitializeEmptyPlayerPage()
+        {
+            emptyPlayerPage = new EmptyPlayerPage();
+            // 订阅空状态页面的打开文件事件
+            emptyPlayerPage.OpenFileRequested += async (s, e) => await OpenFile();
         }
 
         private void MainNav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -115,14 +82,21 @@ namespace AtherCast
                         NavigateToPage(typeof(PlaylistPage));
                         break;
                     case "NowPlaying":
-                        ShowPlayerView();
+                        // 根据播放状态显示相应的页面
+                        if (currentPlayerPage != null)
+                        {
+                            ContentFrame.Content = currentPlayerPage;
+                        }
+                        else
+                        {
+                            ContentFrame.Content = emptyPlayerPage;
+                        }
                         break;
                     case "Home":
                     default:
                         if (ContentFrame != null && HomeGrid != null)
                         {
                             ContentFrame.Content = HomeGrid;
-                            ShowHomeView();
                         }
                         break;
                 }
@@ -136,7 +110,6 @@ namespace AtherCast
                 if (ContentFrame != null)
                 {
                     ContentFrame.Navigate(pageType);
-                    ShowHomeView();
                 }
             }
             catch (Exception ex)
@@ -145,26 +118,7 @@ namespace AtherCast
             }
         }
 
-        private void ShowPlayerView()
-        {
-            if (mediaPlayer != null && HomeContent != null)
-            {
-                mediaPlayer.Visibility = Visibility.Visible;
-                HomeContent.Visibility = Visibility.Collapsed;
-                UpdateMediaPlayerLayout();
-            }
-        }
-
-        private void ShowHomeView()
-        {
-            if (mediaPlayer != null && HomeContent != null)
-            {
-                mediaPlayer.Visibility = Visibility.Collapsed;
-                HomeContent.Visibility = Visibility.Visible;
-            }
-        }
-
-        private async void OpenFileButton_Click(object sender, RoutedEventArgs e)
+        private async Task OpenFile()
         {
             var filePicker = new FileOpenPicker
             {
@@ -195,26 +149,34 @@ namespace AtherCast
             }
         }
 
+        private async void OpenFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            await OpenFile();
+        }
+
         private async Task PlayMediaFile(StorageFile file)
         {
             try
             {
-                if (mediaPlayerCore == null)
+                // 创建新播放器页
+                if (currentPlayerPage == null)
                 {
-                    InitializeMediaPlayer();
+                    currentPlayerPage = new PlayerPage();
                 }
 
-                if (mediaPlayerCore != null)
+                // 导航
+                if (ContentFrame != null)
                 {
-                    var mediaSource = MediaSource.CreateFromStorageFile(file);
-                    mediaPlayerCore.Source = mediaSource;
-                    await Task.Delay(100); // Small delay to ensure media is loaded
-                    mediaPlayerCore.Play();
+                    ContentFrame.Content = currentPlayerPage;
+                }
 
-                    if (MainNav != null && NowPlayingItem != null)
-                    {
-                        MainNav.SelectedItem = NowPlayingItem;
-                    }
+                // 开始播放
+                await currentPlayerPage.PlayMediaFile(file);
+
+                // 导航中选定页面
+                if (MainNav != null && NowPlayingItem != null)
+                {
+                    MainNav.SelectedItem = NowPlayingItem;
                 }
             }
             catch (Exception ex)
@@ -242,48 +204,9 @@ namespace AtherCast
             }
             catch
             {
-                // Fallback error handling if dialog fails
+                // Fallback
                 System.Diagnostics.Debug.WriteLine($"Error: {title} - {message}");
             }
-        }
-
-        private void PlaybackSession_PlaybackStateChanged(MediaPlaybackSession sender, object args)
-        {
-            if (sender == null) return;
-
-            DispatcherQueue?.TryEnqueue(() =>
-            {
-                if (mediaPlayerCore?.PlaybackSession != null)
-                {
-                    switch (sender.PlaybackState)
-                    {
-                        case MediaPlaybackState.Playing:
-                        case MediaPlaybackState.Paused:
-                        case MediaPlaybackState.None:
-                            UpdateMediaPlayerLayout();
-                            break;
-                    }
-                }
-            });
-        }
-
-        private void MainNav_PaneClosing(NavigationView sender, NavigationViewPaneClosingEventArgs args)
-        {
-            UpdateMediaPlayerLayout();
-        }
-
-        private void MainNav_PaneOpening(NavigationView sender, object args)
-        {
-            UpdateMediaPlayerLayout();
-        }
-
-        private void UpdateMediaPlayerLayout()
-        {
-            if (mediaPlayer == null || MainNav == null) return;
-
-            mediaPlayer.Margin = MainNav.IsPaneOpen
-                ? new Thickness(0)
-                : new Thickness(48, 0, 0, 0);
         }
     }
 }

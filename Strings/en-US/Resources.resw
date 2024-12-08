@@ -177,4 +177,22 @@
   <data name="SettingsUpdateCheckHyperlink.Content" xml:space="preserve">
     <value>Check for updates</value>
   </data>
+  <data name="NoNowPlaying.Text" xml:space="preserve">
+    <value>No Now Playing</value>
+  </data>
+  <data name="SelectVideoFile_Desc.Text" xml:space="preserve">
+    <value>Please Select Video File</value>
+  </data>
+  <data name="RestartRequired.Title" xml:space="preserve">
+    <value>Restart Required</value>
+  </data>
+  <data name="RestartRequired.Content" xml:space="preserve">
+    <value>Language settings will take effect after restart. Would you like to restart now?</value>
+  </data>
+  <data name="RestartRequired.PrimaryButton" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="RestartRequired.CloseButton" xml:space="preserve">
+    <value>Later</value>
+  </data>
 </root>

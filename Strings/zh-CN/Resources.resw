@@ -177,4 +177,22 @@
   <data name="SettingsUpdateCheckHyperlink.Content" xml:space="preserve">
     <value>检查更新</value>
   </data>
+  <data name="NoNowPlaying.Text" xml:space="preserve">
+    <value>没有正在播放的内容</value>
+  </data>
+  <data name="SelectVideoFile_Desc.Text" xml:space="preserve">
+    <value>请选择视频文件</value>
+  </data>
+  <data name="RestartRequired.Title" xml:space="preserve">
+    <value>需要重新启动应用</value>
+  </data>
+  <data name="RestartRequired.Content" xml:space="preserve">
+    <value>语言设置将在重新启动应用后生效，是否重启？</value>
+  </data>
+  <data name="RestartRequired.PrimaryButton" xml:space="preserve">
+    <value>重启</value>
+  </data>
+  <data name="RestartRequired.CloseButton" xml:space="preserve">
+    <value>稍后</value>
+  </data>
 </root>

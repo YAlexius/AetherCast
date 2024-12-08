@@ -1,9 +1,9 @@
-using AtherCast.Helpers;
+using AetherCast.Helpers;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using Windows.Storage.Pickers;
 
-namespace AtherCast.Pages
+namespace AetherCast.Pages
 {
     public sealed partial class DanmuLibraryPage : Page
     {

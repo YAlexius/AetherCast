@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
-    x:Class="AtherCast.Pages.SettingsPage"
+    x:Class="AetherCast.Pages.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:AtherCast.Pages"
+    xmlns:local="using:AetherCast.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel x:Name="settingsPageStackPanel" Padding="24" Spacing="24">
+    <StackPanel x:Name="settingsPageStackPanel" Padding="24" Spacing="24 ">
 
-        <!-- 设置的代码还没写好 -->
-        <TextBlock Text="==Not working yet.=="/>
-        
         <!-- 语言设置 -->
         <ComboBox x:Name="LanguageComboBox"
                   x:Uid="LanguageComboBox"
                   MinWidth="200"
                   SelectionChanged="LanguageComboBox_SelectionChanged">
-            <ComboBoxItem Content="简体中文" Tag="zh-CN"/>
-            <ComboBoxItem Content="English" Tag="en-US"/>
-            <ComboBoxItem Content="日本語" Tag="ja-JP"/>
+            <ComboBoxItem x:Name="ChineseLanguageItem" Content="简体中文" Tag="zh-CN"/>
+            <ComboBoxItem x:Name="EnglishLanguageItem" Content="English" Tag="en-US"/>
         </ComboBox>
 
         <!-- 主题设置 -->
-        <ComboBox x:Name="ThemeComboBox"
+        <ComboBox x:Name="ThemeComboBox" 
                   x:Uid="ThemeComboBox"
                   MinWidth="200"
                   SelectionChanged="ThemeComboBox_SelectionChanged">
-            <ComboBoxItem x:Uid="LightThemeItem"/>
-            <ComboBoxItem x:Uid="DarkThemeItem"/>
-            <ComboBoxItem x:Uid="SystemThemeItem"/>
+            <ComboBoxItem x:Name="LightThemeItem" x:Uid="LightThemeItem"/>
+            <ComboBoxItem x:Name="DarkThemeItem" x:Uid="DarkThemeItem"/>
+            <ComboBoxItem x:Name="SystemThemeItem" x:Uid="SystemThemeItem"/>
         </ComboBox>
 
         <!-- 设置说明文本 -->
@@ -44,7 +40,7 @@
                 <Run FontFamily="Comic Sans MS" FontStyle="Italic" Foreground="DarkGray">
                     AetherCast
                 </Run>
-                <Span> Version: <Underline>0.1.0</Underline></Span>
+                <Span> Version: <Underline>0.1.1</Underline></Span>
             </TextBlock>
             <HyperlinkButton 
             x:Uid="SettingsUpdateCheckHyperlink" 
