@@ -9,14 +9,14 @@
 
   <Identity
     Name="ad811a1c-0346-42fa-bab7-813e22650b47"
-    Publisher="CN=Zarya"
+    Publisher="CN=AetherCast"
     Version="0.1.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="ad811a1c-0346-42fa-bab7-813e22650b47" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>AetherCast</DisplayName>
-    <PublisherDisplayName>Zarya</PublisherDisplayName>
+    <PublisherDisplayName>AetherCast</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

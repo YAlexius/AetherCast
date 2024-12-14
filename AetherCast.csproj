@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="863d482e-86e7-40cb-a2e3-7353013b8331-removebg-preview.ico" />
+    <Content Include="AetherCastIcon.ico" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -61,6 +61,16 @@
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
     <DefaultLanguage>zh-CN</DefaultLanguage>
-    <ApplicationIcon>863d482e-86e7-40cb-a2e3-7353013b8331-removebg-preview.ico</ApplicationIcon>
+    <ApplicationIcon>AetherCastIcon.ico</ApplicationIcon>
+    <PackageCertificateThumbprint>4C8DF594C1C35DDBC579274797446421FBB7CBA6</PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <GenerateAppInstallerFile>True</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Never</AppxBundle>
+    <AppInstallerUri>D:/</AppInstallerUri>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
 </Project>
