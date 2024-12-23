@@ -12,6 +12,13 @@
         <MediaPlayerElement x:Name="mediaPlayer"
                       AreTransportControlsEnabled="True"
                       HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch"/>
+                      VerticalAlignment="Stretch">
+            <MediaPlayerElement.TransportControls>
+                <MediaTransportControls 	
+                    IsPlaybackRateButtonVisible = "True"
+                    IsPlaybackRateEnabled = "True"
+                    />
+            </MediaPlayerElement.TransportControls>
+        </MediaPlayerElement>
     </Grid>
 </Page>

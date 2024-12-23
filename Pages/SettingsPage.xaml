@@ -40,7 +40,7 @@
                 <Run FontFamily="Comic Sans MS" FontStyle="Italic" Foreground="DarkGray">
                     AetherCast
                 </Run>
-                <Span> Version: <Underline>0.1.1</Underline></Span>
+                <Span> Version: <Underline>0.1.2</Underline></Span>
             </TextBlock>
             <HyperlinkButton 
             x:Uid="SettingsUpdateCheckHyperlink" 

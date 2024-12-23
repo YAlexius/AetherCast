@@ -51,7 +51,7 @@ namespace AetherCast
         {
             if (currentPlayerPage != null)
             {
-                currentPlayerPage.Cleanup();
+                currentPlayerPage.Dispose();
                 currentPlayerPage = null;
             }
         }
