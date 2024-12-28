@@ -195,4 +195,7 @@
   <data name="RestartRequired.CloseButton" xml:space="preserve">
     <value>稍后</value>
   </data>
+  <data name="AppTitleBarText.Text" xml:space="preserve">
+    <value>以太投映</value>
+  </data>
 </root>

@@ -9,68 +9,97 @@
     mc:Ignorable="d">
 
     <Grid>
-        <controls:NavigationView x:Name="MainNav"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 标题栏 -->
+            <Grid x:Name="AppTitleBar" Height="32">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 应用图标 -->
+                <Image Source="ms-appx:///Assets/AppIcon.png"
+           Width="16" 
+           Height="16"
+           Margin="8,0,8,0"/>
+
+                <!-- 标题文本 -->
+                <TextBlock x:Uid="AppTitleBarText"
+              Grid.Column="1"
+              VerticalAlignment="Center"/>
+            </Grid>
+            <!-- 主内容 -->
+            <Grid Grid.Row="1">
+                <controls:NavigationView x:Name="MainNav"
                                 IsSettingsVisible="True"
                                 IsBackButtonVisible="Collapsed"
                                 PaneDisplayMode="Auto">
 
-            <controls:NavigationView.MenuItems>
-                <controls:NavigationViewItem x:Name="HomeItem" 
+                    <controls:NavigationView.MenuItems>
+                        <controls:NavigationViewItem x:Name="HomeItem" 
                                            x:Uid="HomeLabel"
                                            Icon="Home" 
                                            Tag="Home"/>
-                <controls:NavigationViewItem x:Name="VideoItem" 
+                        <controls:NavigationViewItem x:Name="VideoItem" 
                                            x:Uid="VideoLibraryLabel"
                                            Icon="Video" 
                                            Tag="VideoLibrary"/>
-                <controls:NavigationViewItem x:Name="DanmuItem" 
+                        <controls:NavigationViewItem x:Name="DanmuItem" 
                                            x:Uid="DanmuLibraryLabel"
                                            Icon="Message" 
                                            Tag="DanmuLibrary"/>
-                <controls:NavigationViewItem x:Name="PlaylistItem" 
+                        <controls:NavigationViewItem x:Name="PlaylistItem" 
                                            x:Uid="PlaylistLabel"
                                            Icon="List" 
                                            Tag="Playlist"/>
-            </controls:NavigationView.MenuItems>
+                    </controls:NavigationView.MenuItems>
 
-            <controls:NavigationView.FooterMenuItems>
-                <controls:NavigationViewItem x:Name="NowPlayingItem"
+                    <controls:NavigationView.FooterMenuItems>
+                        <controls:NavigationViewItem x:Name="NowPlayingItem"
                                            x:Uid="NowPlayingLabel"
                                            Icon="Play" 
                                            Tag="NowPlaying"/>
-            </controls:NavigationView.FooterMenuItems>
+                    </controls:NavigationView.FooterMenuItems>
 
-            <Frame x:Name="ContentFrame">
-                <Grid x:Name="HomeGrid" Padding="24">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                    <Frame x:Name="ContentFrame">
+                        <Grid x:Name="HomeGrid" Padding="24">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
-                        <TextBlock x:Uid="HomeGrid"
+                                <TextBlock x:Uid="HomeGrid"
                                  Style="{StaticResource TitleTextBlockStyle}"/>
 
-                        <Button x:Name="OpenFileButton" 
+                                <Button x:Name="OpenFileButton" 
                                 x:Uid="OpenFileButton"
                               Grid.Column="1"
                               Style="{StaticResource AccentButtonStyle}">
-                        </Button>
-                    </Grid>
+                                </Button>
+                            </Grid>
 
-                    <Grid x:Name="HomeContent" Grid.Row="1">
-                        <GridView x:Name="RecentItemsGrid"
+                            <Grid x:Name="HomeContent" Grid.Row="1">
+                                <GridView x:Name="RecentItemsGrid"
                                  Margin="0,24,0,0">
-                            <TextBlock x:Uid="VideoLibrary_Desc"/>
-                        </GridView>
-                    </Grid>
-                </Grid>
-            </Frame>
-        </controls:NavigationView>
+                                    <TextBlock x:Uid="VideoLibrary_Desc"/>
+                                </GridView>
+                            </Grid>
+                        </Grid>
+                    </Frame>
+                </controls:NavigationView>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

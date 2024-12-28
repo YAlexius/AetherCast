@@ -1,4 +1,5 @@
 using AetherCast.Pages;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -16,7 +17,19 @@ namespace AetherCast
         public MainWindow()
         {
             this.InitializeComponent();
-            Title = "AetherCast";
+
+            // 标题栏设置
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(AppTitleBar);
+
+            // 自定义标题栏颜色
+            if (AppWindow.TitleBar.ExtendsContentIntoTitleBar)
+            {
+                AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+                AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            }
+
+
             InitializeEmptyPlayerPage();
             RegisterEventHandlers();
 

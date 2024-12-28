@@ -195,4 +195,7 @@
   <data name="RestartRequired.CloseButton" xml:space="preserve">
     <value>Later</value>
   </data>
+  <data name="AppTitleBarText.Text" xml:space="preserve">
+    <value>AetherCast</value>
+  </data>
 </root>
