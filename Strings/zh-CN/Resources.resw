@@ -168,8 +168,8 @@
   <data name="SystemThemeItem.Content" xml:space="preserve">
     <value>跟随系统</value>
   </data>
-  <data name="ThemeSettingNote.Text" xml:space="preserve">
-    <value>主题设置将在重启应用后生效</value>
+  <data name="LangSettingNote.Text" xml:space="preserve">
+    <value>语言设置将在重启应用后生效</value>
   </data>
   <data name="PlaylistGrid.Text" xml:space="preserve">
     <value>播放列表</value>

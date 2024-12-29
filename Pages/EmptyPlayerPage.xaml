@@ -7,12 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel HorizontalAlignment="Center" 
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" 
                 VerticalAlignment="Center" 
                 Spacing="16">
 
         <!-- 使用图标提供视觉提示 -->
-        <FontIcon Glyph="&#xE768;"
+            <FontIcon Glyph="&#xEA69;"
                   FontSize="48"
                   Opacity="0.6"/>
 
@@ -29,6 +30,8 @@
                 x:Uid="OpenFileButton"
                 Style="{StaticResource AccentButtonStyle}"
                 Click="OpenFileButton_Click"
-                Margin="0,8,0,0"/>
+                HorizontalAlignment="Center"
+                />
     </StackPanel>
+    </Grid>
 </Page>

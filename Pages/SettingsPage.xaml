@@ -19,6 +19,11 @@
             <ComboBoxItem x:Name="EnglishLanguageItem" Content="English" Tag="en-US"/>
         </ComboBox>
 
+        <!-- 设置说明文本 -->
+        <TextBlock x:Uid="LangSettingNote"
+                  Style="{StaticResource CaptionTextBlockStyle}"
+                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+
         <!-- 主题设置 -->
         <ComboBox x:Name="ThemeComboBox" 
                   x:Uid="ThemeComboBox"
@@ -29,18 +34,13 @@
             <ComboBoxItem x:Name="SystemThemeItem" x:Uid="SystemThemeItem"/>
         </ComboBox>
 
-        <!-- 设置说明文本 -->
-        <TextBlock x:Uid="ThemeSettingNote"
-                  Style="{StaticResource CaptionTextBlockStyle}"
-                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
-
         <!-- 版本与更新-->
         <StackPanel Spacing="8">
             <TextBlock>
                 <Run FontFamily="Comic Sans MS" FontStyle="Italic" Foreground="DarkGray">
                     AetherCast
                 </Run>
-                <Span> Version: <Underline>0.1.2</Underline></Span>
+                <Span> Version: <Underline>0.1.3</Underline></Span>
             </TextBlock>
             <HyperlinkButton 
             x:Uid="SettingsUpdateCheckHyperlink" 

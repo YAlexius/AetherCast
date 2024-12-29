@@ -168,7 +168,7 @@
   <data name="SystemThemeItem.Content" xml:space="preserve">
     <value>System</value>
   </data>
-  <data name="ThemeSettingNote.Text" xml:space="preserve">
+  <data name="LangSettingNote.Text" xml:space="preserve">
     <value>Need to restart the app to apply.</value>
   </data>
   <data name="PlaylistGrid.Text" xml:space="preserve">

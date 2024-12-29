@@ -10,7 +10,7 @@
   <Identity
     Name="ad811a1c-0346-42fa-bab7-813e22650b47"
     Publisher="CN=AetherCast"
-    Version="0.1.2.0" />
+    Version="0.1.3.0" />
 
   <mp:PhoneIdentity PhoneProductId="ad811a1c-0346-42fa-bab7-813e22650b47" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
